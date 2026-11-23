@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block title %}Recibo — SaborLocal{% endblock %}
+{% block content %}
+<h1>Recibo del pedido #{{ pedido_id }}</h1>
+<div id="app" data-page="cliente_recibo" data-pedido-id="{{ pedido_id }}"><div id="contenido"><p class="muted">Cargando recibo…</p></div></div>
+{% endblock %}

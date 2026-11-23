@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Registro Chef — SaborLocal{% endblock %}
+{% block content %}
+<div id="app" data-page="registro_chef" class="card" style="max-width:480px;margin:40px auto;">
+  <h2>Registrar mi restaurante</h2>
+  <p class="muted">Podrás iniciar sesión de inmediato para configurar tu menú y publicar tu restaurante.</p>
+  <form id="form-registro" method="post">
+    <label>Tu nombre completo</label>
+    <input type="text" name="nombre" required>
+    <label>Correo electrónico</label>
+    <input type="email" name="correo" required>
+    <label>Contraseña</label>
+    <input type="password" name="contrasena" required minlength="4">
+    <label>Nombre del restaurante</label>
+    <input type="text" name="nombre_restaurante" required>
+    <label>Dirección</label>
+    <input type="text" name="direccion" required>
+    <label>Descripción (opcional)</label>
+    <textarea name="descripcion" rows="2"></textarea>
+    <button type="submit">Registrar restaurante</button>
+  </form>
+  <div class="top-links"><a href="{{ url_for('login') }}">Ya tengo cuenta</a></div>
+</div>
+{% endblock %}

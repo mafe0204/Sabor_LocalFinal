@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block title %}Editar platillo — SaborLocal{% endblock %}
+{% block content %}
+<a href="{{ url_for('chef_menu') }}">&larr; Volver a mi menú</a>
+<h1>Editar platillo</h1>
+<div id="app" data-page="chef_editar_producto" data-producto-id="{{ producto_id }}"><div id="contenido"><p class="muted">Cargando platillo…</p></div></div>
+{% endblock %}

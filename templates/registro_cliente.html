@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Registro Cliente — SaborLocal{% endblock %}
+{% block content %}
+<div id="app" data-page="registro_cliente" class="card" style="max-width:420px;margin:40px auto;">
+  <h2>Crear cuenta de cliente</h2>
+  <form id="form-registro" method="post">
+    <label>Nombre completo</label>
+    <input type="text" name="nombre" required>
+    <label>Correo electrónico</label>
+    <input type="email" name="correo" required>
+    <label>Contraseña</label>
+    <input type="password" name="contrasena" required minlength="4">
+    <button type="submit">Registrarme</button>
+  </form>
+  <div class="top-links"><a href="{{ url_for('login') }}">Ya tengo cuenta</a></div>
+</div>
+{% endblock %}

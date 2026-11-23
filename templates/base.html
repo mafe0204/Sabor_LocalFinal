@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}SaborLocal{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde-bosque: #23402F; --verde-oscuro: #172B20; --dorado: #C19A4B; --dorado-oscuro: #9C7A32;
+    --crema: #F7F1E3; --papel: #FFFDF8; --texto: #2B2A26; --oliva: #5F7F45;
+    --terracota: #B5502F; --gris: #7A746A; --borde: #E6DCC6;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: 'Lato', 'Segoe UI', sans-serif; background: var(--crema); color: var(--texto); line-height:1.5; }
+  nav { background: var(--verde-bosque); color: var(--crema); padding: 14px 28px; display:flex; justify-content:space-between; align-items:center; border-bottom: 3px solid var(--dorado); }
+  nav a { color: var(--crema); text-decoration:none; margin-left: 20px; font-weight:700; font-size:0.9em; letter-spacing:.06em; text-transform:uppercase; }
+  nav a:hover { color: var(--dorado); }
+  nav span { font-size:0.9em; opacity:.85; }
+  .brand { font-family: 'Playfair Display', Georgia, serif; font-size: 1.6em; font-weight: 700; color: var(--dorado); letter-spacing:.03em; }
+  .container { max-width: 960px; margin: 32px auto; padding: 0 16px; }
+  .card { background: var(--papel); border: 1px solid var(--borde); border-top: 3px solid var(--dorado); border-radius: 4px; padding: 20px; margin-bottom: 18px; box-shadow: 0 3px 10px rgba(35,64,47,.08); }
+  .grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 18px; }
+  .grid .card { margin-bottom:0; }
+  h1,h2,h3,h4 { font-family: 'Playfair Display', Georgia, serif; color: var(--verde-bosque); }
+  h1 { font-size: 2em; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid var(--borde); position: relative; }
+  h1::after { content:""; position:absolute; left:0; bottom:-2px; width:70px; height:3px; background: var(--dorado); }
+  a { color: var(--dorado-oscuro); }
+  input, select, textarea { width:100%; padding:9px 10px; margin:6px 0 12px; border:1px solid var(--borde); border-radius:3px; font-size:1em; font-family:inherit; background:#fff; }
+  input:focus, select:focus, textarea:focus { outline:none; border-color: var(--dorado); box-shadow: 0 0 0 3px rgba(193,154,75,.25); }
+  label { font-weight:700; font-size:0.82em; letter-spacing:.04em; text-transform:uppercase; color: var(--gris); }
+  button, .btn { background: var(--verde-bosque); color: var(--crema); border:1px solid var(--verde-bosque); padding:9px 18px; border-radius:3px; cursor:pointer; font-weight:700; font-family:inherit; font-size:0.9em; letter-spacing:.05em; text-transform:uppercase; text-decoration:none; display:inline-block; transition: background .2s, color .2s; }
+  button:hover, .btn:hover { background: var(--dorado); border-color: var(--dorado); color: var(--verde-oscuro); }
+  button:disabled { opacity:.5; cursor:not-allowed; }
+  button:disabled:hover { background: var(--verde-bosque); color: var(--crema); border-color: var(--verde-bosque); }
+  .btn-secondary { background: var(--gris); border-color: var(--gris); }
+  .btn-verde { background: var(--oliva); border-color: var(--oliva); }
+  .btn-ambar { background: var(--dorado-oscuro); border-color: var(--dorado-oscuro); }
+  .btn-outline { background: transparent; color: var(--verde-bosque); border:1px solid var(--verde-bosque); }
+  .flash { padding: 11px 16px; border-radius:3px; margin-bottom: 12px; border-left: 4px solid; }
+  .flash-success { background:#EAF1E2; color:#3C5A27; border-color: var(--oliva); }
+  .flash-danger { background:#F8E6DF; color:#8C3319; border-color: var(--terracota); }
+  .flash-warning { background:#FBF1DA; color:#7A5A12; border-color: var(--dorado); }
+  .flash-info { background:#E7EEEA; color:#23402F; border-color: var(--verde-bosque); }
+  .badge { display:inline-block; padding:3px 11px; border-radius:2px; font-size:0.72em; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:white; }
+  .badge-success { background: var(--oliva); } .badge-warning { background: var(--dorado-oscuro); }
+  .badge-danger { background: var(--terracota); } .badge-info { background: var(--verde-bosque); } .badge-secondary { background:#9A948A; }
+  .fila { display:flex; justify-content:space-between; align-items:center; padding:10px 0; border-bottom:1px dotted var(--borde); }
+  .muted { color: var(--gris); font-size:0.9em; }
+  form.inline { display:inline; }
+  .top-links { text-align:center; margin-top: 12px; }
+  pre.recibo { background: var(--papel); border: 1px dashed var(--dorado); padding:20px; border-radius:3px; font-family: 'Courier New', monospace; white-space: pre-wrap; }
+  footer { text-align:center; padding: 24px 0 32px; color: var(--gris); font-family: 'Playfair Display', Georgia, serif; font-style: italic; font-size:.9em; }
+</style>
+</head>
+<body>
+<nav>
+  <span class="brand">🍽️ SaborLocal</span>
+  <div>
+    {% if usuario %}
+      <span>{{ usuario.nombre or usuario.correo }} ({{ usuario.rol }})</span>
+      {% if usuario.rol == 'CLIENTE' %}
+        <a href="{{ url_for('panel_cliente') }}">Explorar</a>
+        <a href="{{ url_for('carrito_ver') }}">Carrito</a>
+        <a href="{{ url_for('cliente_pedidos') }}">Mis pedidos</a>
+      {% elif usuario.rol == 'CHEF' %}
+        <a href="{{ url_for('panel_chef') }}">Pedidos</a>
+        <a href="{{ url_for('chef_menu') }}">Mi menú</a>
+      {% endif %}
+      <a href="{{ url_for('logout') }}" id="btn-salir">Salir</a>
+    {% else %}
+      <a href="{{ url_for('login') }}">Ingresar</a>
+    {% endif %}
+  </div>
+</nav>
+<div class="container">
+  {% with mensajes = get_flashed_messages(with_categories=true) %}
+    {% for categoria, mensaje in mensajes %}
+      <div class="flash flash-{{ categoria }}">{{ mensaje }}</div>
+    {% endfor %}
+  {% endwith %}
+  <div id="avisos" aria-live="polite"></div>
+  {% block content %}{% endblock %}
+</div>
+<footer>Sabor de la casa, hecho con cariño</footer>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
